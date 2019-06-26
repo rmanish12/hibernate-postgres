@@ -12,11 +12,11 @@ public class App
     	UserService userService = new UserServiceImpl();
     	
     	//GET
-//    	user.setId(102);
-//    	user.setUsername("rogers63");
-//    	user.setPassword("e6a33eee180b07e563d74fee8c2c66b8");
-//    	
-//    	userService.getUser(user);
+    	user.setId(102);
+    	user.setUsername("rogers63");
+    	user.setPassword("e6a33eee180b07e563d74fee8c2c66b8");
+    	
+    	userService.getUser(user);
     	
     	//POST
 //    	user.setId(101);
@@ -35,7 +35,7 @@ public class App
 //    	userService.updateUser(user, firstName); 
     	
     	//DELETE
-    	user.setId(101);
-    	userService.deleteUser(user);
+//    	user.setId(101);
+//    	userService.deleteUser(user);
     }
 }

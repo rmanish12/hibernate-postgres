@@ -15,7 +15,7 @@ public class UsersDAOImpl implements UsersDAO{
 
 	static Logger logger = Logger.getLogger(UsersDAOImpl.class);
 	
-	public void getUser(UserBean user) {
+	public void getUser(UserBean user) throws Exception {
 		
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
 											.addAnnotatedClass(UserEntity.class).buildSessionFactory();
@@ -49,18 +49,17 @@ public class UsersDAOImpl implements UsersDAO{
 					throw new PasswordMismatch("Incorrect password");
 				}
 			} else {
-				logger.error("User does not exist");
 				throw new UserNotFound("User does not exist");
 			}
 			
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			logger.error(e);
+			throw e;
 		}
 	}
 	
-	public void createUser(UserBean user) {
+	public void createUser(UserBean user) throws Exception{
 		
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
 											.addAnnotatedClass(UserEntity.class).buildSessionFactory();
@@ -95,13 +94,13 @@ public class UsersDAOImpl implements UsersDAO{
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			logger.error(e);
+			throw e;
 		}
 		
 	}
 	
-	public void updateUser(UserBean user, String firstName) {
+	public void updateUser(UserBean user, String firstName) throws Exception{
 		
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
 											.addAnnotatedClass(UserEntity.class).buildSessionFactory();
@@ -128,12 +127,13 @@ public class UsersDAOImpl implements UsersDAO{
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
+			throw e;
 		}
 		
 	}
 	
-	public void deleteUser(UserBean user) {
+	public void deleteUser(UserBean user) throws Exception{
 		
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
 											.addAnnotatedClass(UserEntity.class).buildSessionFactory();
@@ -159,7 +159,8 @@ public class UsersDAOImpl implements UsersDAO{
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
+			throw e;
 		}
 		
 	}
