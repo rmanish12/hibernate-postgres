@@ -1,16 +1,20 @@
 package com.hibernate_postgres.dao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.hibernate_postgres.bean.UserBean;
 import com.hibernate_postgres.entity.UserEntity;
+import com.hibernate_postgres.exceptions.PasswordMismatch;
 import com.hibernate_postgres.exceptions.UserAlreadyExists;
 import com.hibernate_postgres.exceptions.UserNotFound;
 
 public class UsersDAOImpl implements UsersDAO{
 
+	static Logger logger = Logger.getLogger(UsersDAOImpl.class);
+	
 	public void getUser(UserBean user) {
 		
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -39,11 +43,13 @@ public class UsersDAOImpl implements UsersDAO{
 					userFetched.setGender(user.getGender());
 					userFetched.setStatus(foundUser.getStatus());
 					
-					System.out.println(userFetched);
+//					System.out.println(userFetched);
+					logger.info("user fetched");
 				} else {
-					System.out.println("Password does not match");
+					throw new PasswordMismatch("Incorrect password");
 				}
 			} else {
+				logger.error("User does not exist");
 				throw new UserNotFound("User does not exist");
 			}
 			
@@ -82,7 +88,8 @@ public class UsersDAOImpl implements UsersDAO{
 				session.save(userToCreate);
 				session.getTransaction().commit();
 				
-				System.out.println("User saved successfully");
+//				System.out.println("User saved successfully");
+				logger.info("User saved successfully");
 			} else {
 				throw new UserAlreadyExists("User already exists");
 			}
@@ -114,7 +121,8 @@ public class UsersDAOImpl implements UsersDAO{
 				session.save(userToUpdate);			
 				session.getTransaction().commit();
 				
-				System.out.println("User updated successfully");
+//				System.out.println("User updated successfully");
+				logger.info("User updated successfully");
 			} else {
 				throw new UserNotFound("User does not exists");
 			}
@@ -144,7 +152,8 @@ public class UsersDAOImpl implements UsersDAO{
 				session.delete(userToDelete);
 				session.getTransaction().commit();
 				
-				System.out.println("User deleted successfully");
+//				System.out.println("User deleted successfully");
+				logger.info("User deleted successfully");
 			} else {
 				throw new UserNotFound("User does not exists");
 			}
