@@ -1,4 +1,4 @@
-package com.hibernate_postgres;
+package com.hibernate_postgres.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_details")
-public class Users {
+public class UserEntity {
 
 	@Id
 	@Column(name = "user_id")
@@ -83,10 +83,4 @@ public class Users {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Users [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", gender=" + gender + ", password=" + password + ", status=" + status + "]";
-	}
-		
 }

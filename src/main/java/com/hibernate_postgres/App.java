@@ -1,33 +1,41 @@
 package com.hibernate_postgres;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.Session;
+import com.hibernate_postgres.bean.UserBean;
+import com.hibernate_postgres.service.UserService;
+import com.hibernate_postgres.service.UserServiceImpl;
 
 public class App 
 {
     public static void main( String[] args )
     {
-    	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
-    										.addAnnotatedClass(Users.class). buildSessionFactory();
+    	UserBean user = new UserBean();
+    	UserService userService = new UserServiceImpl();
     	
-    	Session session = sessionFactory.getCurrentSession();
+    	//GET
+    	user.setId(101);
+    	user.setUsername("rogers63");
+    	user.setPassword("e6a33eee180b07e563d74fee8c2c66b8");
     	
-    	int id = 1;
+    	userService.getUser(user);
     	
-    	try {
-			
-    		session.beginTransaction();
-    		Users user = session.get(Users.class, id);
-    		session.getTransaction().commit();
-    		
-    		if(user!=null) {
-    			System.out.println(user);
-    		}
-    		
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+    	//POST
+//    	user.setId(101);
+//    	user.setUsername("rogers63");
+//    	user.setPassword("e6a33eee180b07e563d74fee8c2c66b8");
+//    	user.setFirstName("David");
+//    	user.setLastName("John");
+//    	user.setGender("Female");
+//    	user.setStatus(1);
+//    	
+//    	userService.createUser(user);
+    	
+    	//UPDATE
+//    	user.setId(101);
+//    	String firstName = "Michael";
+//    	userService.updateUser(user, firstName); 
+    	
+    	//DELETE
+//    	user.setId(101);
+//    	userService.deleteUser(user);
     }
 }
