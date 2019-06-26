@@ -6,6 +6,8 @@ import org.hibernate.cfg.Configuration;
 
 import com.hibernate_postgres.bean.UserBean;
 import com.hibernate_postgres.entity.UserEntity;
+import com.hibernate_postgres.exceptions.UserAlreadyExists;
+import com.hibernate_postgres.exceptions.UserNotFound;
 
 public class UsersDAOImpl implements UsersDAO{
 
@@ -42,7 +44,7 @@ public class UsersDAOImpl implements UsersDAO{
 					System.out.println("Password does not match");
 				}
 			} else {
-				System.out.println("User not found");
+				throw new UserNotFound("User does not exist");
 			}
 			
 			
@@ -65,19 +67,25 @@ public class UsersDAOImpl implements UsersDAO{
 			
 			session.beginTransaction();
 			
-			userToCreate = new UserEntity();
-			userToCreate.setId(user.getId());
-			userToCreate.setUsername(user.getUsername());
-			userToCreate.setPassword(user.getPassword());
-			userToCreate.setFirstName(user.getFirstName());
-			userToCreate.setLastName(user.getLastName());
-			userToCreate.setGender(user.getGender());
-			userToCreate.setStatus(user.getStatus());
-
-			session.save(userToCreate);
-			session.getTransaction().commit();
+			userToCreate = session.get(UserEntity.class, user.getId());
 			
-			System.out.println("User saved successfully");
+			if(userToCreate == null) {
+				userToCreate = new UserEntity();
+				userToCreate.setId(user.getId());
+				userToCreate.setUsername(user.getUsername());
+				userToCreate.setPassword(user.getPassword());
+				userToCreate.setFirstName(user.getFirstName());
+				userToCreate.setLastName(user.getLastName());
+				userToCreate.setGender(user.getGender());
+				userToCreate.setStatus(user.getStatus());
+
+				session.save(userToCreate);
+				session.getTransaction().commit();
+				
+				System.out.println("User saved successfully");
+			} else {
+				throw new UserAlreadyExists("User already exists");
+			}
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -108,7 +116,7 @@ public class UsersDAOImpl implements UsersDAO{
 				
 				System.out.println("User updated successfully");
 			} else {
-				System.out.println("User not found");
+				throw new UserNotFound("User does not exists");
 			}
 			
 		} catch (Exception e) {
@@ -138,7 +146,7 @@ public class UsersDAOImpl implements UsersDAO{
 				
 				System.out.println("User deleted successfully");
 			} else {
-				System.out.println("User not found");
+				throw new UserNotFound("User does not exists");
 			}
 			
 		} catch (Exception e) {

@@ -12,22 +12,22 @@ public class App
     	UserService userService = new UserServiceImpl();
     	
     	//GET
-    	user.setId(101);
-    	user.setUsername("rogers63");
-    	user.setPassword("e6a33eee180b07e563d74fee8c2c66b8");
-    	
-    	userService.getUser(user);
-    	
-    	//POST
 //    	user.setId(101);
 //    	user.setUsername("rogers63");
 //    	user.setPassword("e6a33eee180b07e563d74fee8c2c66b8");
-//    	user.setFirstName("David");
-//    	user.setLastName("John");
-//    	user.setGender("Female");
-//    	user.setStatus(1);
 //    	
-//    	userService.createUser(user);
+//    	userService.getUser(user);
+    	
+    	//POST
+    	user.setId(101);
+    	user.setUsername("rogers63");
+    	user.setPassword("e6a33eee180b07e563d74fee8c2c66b8");
+    	user.setFirstName("David");
+    	user.setLastName("John");
+    	user.setGender("Female");
+    	user.setStatus(1);
+    	
+    	userService.createUser(user);
     	
     	//UPDATE
 //    	user.setId(101);
