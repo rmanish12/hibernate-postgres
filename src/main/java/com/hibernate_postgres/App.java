@@ -12,7 +12,7 @@ public class App
     	UserService userService = new UserServiceImpl();
     	
     	//GET
-    	user.setId(101);
+    	user.setId(102);
     	user.setUsername("rogers63");
     	user.setPassword("e6a33eee180b07e563d74fee8c2c66b8");
     	
@@ -28,7 +28,7 @@ public class App
 //    	user.setStatus(1);
 //    	
 //    	userService.createUser(user);
-    	
+//    	
     	//UPDATE
 //    	user.setId(101);
 //    	String firstName = "Michael";
