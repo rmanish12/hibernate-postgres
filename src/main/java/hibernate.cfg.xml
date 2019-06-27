@@ -18,6 +18,8 @@
        	<!-- Set the current session context -->
        	<property name="current_session_context_class">thread</property>
        	
-        <mapping class="com.hibernate_postgres.entity.UserEntity"/>  
+        <mapping class="com.hibernate_postgres.entity.UserEntity"/>
+        <mapping class="com.hibernate_postgres.entity.BankEntity"/>
+        <mapping class="com.hibernate_postgres.entity.EmployeeEntity"/>  
     </session-factory>  
 </hibernate-configuration>
