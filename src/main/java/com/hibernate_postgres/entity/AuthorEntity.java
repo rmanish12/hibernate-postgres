@@ -20,8 +20,7 @@ public class AuthorEntity {
 	private String name;
 	private String mobile;
 
-	@OneToMany(mappedBy = "author", cascade = {CascadeType.DETACH, CascadeType.MERGE,
-					CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	private List<BookEntity> books;
 	
 	public int getAuthorId() {
@@ -49,5 +48,10 @@ public class AuthorEntity {
 		this.books = books;
 	}
 	
+	@Override
+	public String toString() {
+		return "AuthorEntity [authorId=" + authorId + ", name=" + name + ", mobile=" + mobile + ", books=" + books
+				+ "]";
+	}
 	
 }

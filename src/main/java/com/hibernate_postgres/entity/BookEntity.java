@@ -47,10 +47,5 @@ public class BookEntity {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-	
-	@Override
-	public String toString() {
-		return "BookEntity [bookId=" + bookId + ", author=" + author + ", name=" + name + ", isbn=" + isbn + "]";
-	}
 		
 }
