@@ -20,6 +20,8 @@
        	
         <mapping class="com.hibernate_postgres.entity.UserEntity"/>
         <mapping class="com.hibernate_postgres.entity.BankEntity"/>
-        <mapping class="com.hibernate_postgres.entity.EmployeeEntity"/>  
+        <mapping class="com.hibernate_postgres.entity.EmployeeEntity"/>
+        <mapping class="com.hibernate_postgres.entity.CourseEntity"/>
+        <mapping class="com.hibernate_postgres.entity.StudentEntity"/>  
     </session-factory>  
 </hibernate-configuration>
