@@ -7,11 +7,11 @@ public class StudentManyToMany {
 	
 	public static void main(String[] args) {
 		StudentService studentService = new StudentServiceImpl();
-		//studentService.getStudentsForCourse(10);
+//		studentService.getStudentsForCourse(10);
 		
 //		studentService.getCoursesForStudent(2);
 		
-//		studentService.linkCourseWithStudent(10, 3);
+		studentService.linkCourseWithStudent(10, 7);
 		
 //		CourseEntity course = new CourseEntity();
 //		course.setId(12);
@@ -28,6 +28,6 @@ public class StudentManyToMany {
 		
 //		studentService.deleteStudent(2);
 		
-		studentService.deleteCourse(10);
+//		studentService.deleteCourse(10);
 	}
 }

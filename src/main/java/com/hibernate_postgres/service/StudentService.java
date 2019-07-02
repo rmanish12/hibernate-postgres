@@ -4,8 +4,8 @@ import com.hibernate_postgres.entity.CourseEntity;
 import com.hibernate_postgres.entity.StudentEntity;
 
 public interface StudentService {
-	public void getStudentsForCourse(int courseId);
-	public void getCoursesForStudent(int studentId);
+	public CourseEntity getStudentsForCourse(int courseId);
+	public StudentEntity getCoursesForStudent(int studentId) throws Exception;
 	public void linkCourseWithStudent(int courseId, int studentId);
 	public void insertNewCourse(CourseEntity course);
 	public void insertNewStudent(StudentEntity student);
