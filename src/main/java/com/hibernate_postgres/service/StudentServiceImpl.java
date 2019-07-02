@@ -8,21 +8,26 @@ import com.hibernate_postgres.entity.StudentEntity;
 public class StudentServiceImpl implements StudentService{
 
 	StudentDAO studentdao = new StudentDAOImpl();
+	CourseEntity course = null;
+	StudentEntity student = null;
 	
-	public void getStudentsForCourse(int courseId) {
+	public CourseEntity getStudentsForCourse(int courseId) {
 		try {
-			studentdao.getStudentsForCourse(courseId);
+			course = studentdao.getStudentsForCourse(courseId);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return course;
 	}
 
-	public void getCoursesForStudent(int studentId) {
+	public StudentEntity getCoursesForStudent(int studentId) throws Exception {
 		try {
-			studentdao.getCoursesForStudent(studentId);
+			student = studentdao.getCoursesForStudent(studentId);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
+		return student;
 	}
 
 	public void linkCourseWithStudent(int courseId, int studentId) {

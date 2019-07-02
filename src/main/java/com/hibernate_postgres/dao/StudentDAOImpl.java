@@ -7,12 +7,16 @@ import org.hibernate.cfg.Configuration;
 
 import com.hibernate_postgres.entity.CourseEntity;
 import com.hibernate_postgres.entity.StudentEntity;
+import com.hibernate_postgres.exceptions.CourseAlreadyExists;
+import com.hibernate_postgres.exceptions.CourseNotFound;
+import com.hibernate_postgres.exceptions.StudentAlreadyExists;
+import com.hibernate_postgres.exceptions.StudentNotFound;
 
 public class StudentDAOImpl implements StudentDAO{
 
 	static Logger logger = Logger.getLogger(StudentDAOImpl.class);
 	
-	public void getStudentsForCourse(int courseId) throws Exception {
+	public CourseEntity getStudentsForCourse(int courseId) throws Exception {
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
 											.addAnnotatedClass(CourseEntity.class)
 											.buildSessionFactory();
@@ -28,22 +32,20 @@ public class StudentDAOImpl implements StudentDAO{
 			course = session.get(CourseEntity.class, courseId);
 			
 			if(course!=null) {
-				if(course.getStudents().size()!=0) {
-					for(StudentEntity s: course.getStudents()) {
-						logger.info(s.getId());
-					}
-				}
+				
 			} else {
-				logger.warn("Course not found");
+				throw new CourseNotFound("Course not found");
 			}
-			
-			
+						
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(e);
+			throw e;
 		}
+		
+		return course;
 	}
 	
-	public void getCoursesForStudent(int studentId) throws Exception {
+	public StudentEntity getCoursesForStudent(int studentId) throws Exception {
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
 											.addAnnotatedClass(StudentEntity.class)
 											.buildSessionFactory();
@@ -58,17 +60,16 @@ public class StudentDAOImpl implements StudentDAO{
 			student = session.get(StudentEntity.class, studentId);
 			
 			if(student!=null) {
-				if(student.getCourses().size()!=0) {
-					for(CourseEntity c: student.getCourses()) {
-						logger.info(c.getId());
-					}
-				}
+				
 			} else {
-				logger.warn("Student not found");
+				throw new StudentNotFound("Student not found");
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(e);
+			throw e;
 		}
+		
+		return student;
 	}
 	
 	public void linkCourseWithStudent(int courseId, int studentId) throws Exception {
@@ -97,10 +98,11 @@ public class StudentDAOImpl implements StudentDAO{
 				
 				logger.info("Student added to the course");
 			} else {
-				logger.error("Course not found");
+				throw new CourseNotFound("Course not found");
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(e);
+			throw e;
 		}
 	}
 	
@@ -123,11 +125,12 @@ public class StudentDAOImpl implements StudentDAO{
 				
 				logger.info("Course inserted successfully..");
 			} else {
-				logger.warn("Course already exists");
+				throw new CourseAlreadyExists("Course already exists");
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(e);
+			throw e;
 		}
 	}
 	
@@ -151,10 +154,11 @@ public class StudentDAOImpl implements StudentDAO{
 				
 				logger.info("Student saved successfully");
 			} else {
-				logger.error("Student already exists");
+				throw new StudentAlreadyExists("Student already exists");
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(e);
+			throw e;
 		}
 	}
 	
@@ -178,10 +182,11 @@ public class StudentDAOImpl implements StudentDAO{
 				
 				logger.info("Student record deleted successfully");
 			} else {
-				logger.error("Student does not exist");
+				throw new StudentNotFound("Student does not exist");
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(e);
+			throw e;
 		}
 	}
 	
@@ -204,10 +209,11 @@ public class StudentDAOImpl implements StudentDAO{
 				
 				logger.info("Course deleted successfully");
 			} else {
-				logger.error("Course does not exist");
+				throw new CourseNotFound("Course does not exist");
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(e);
+			throw e;
 		}
 	}
 }
